@@ -14,25 +14,67 @@ export const postEstado = async (req, res) => {
 
 export const getConsultas = async (req,res) => {
 
-    const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor order by c.codigo;')
-    const fechaFormat=tabla_completa
 
-    res.render('consultas', {tabla_completa})
+        const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor order by c.codigo;')
+        res.render('consultas', {tabla_completa})
+        
+
+
 }
 
 
 export const postConsultas = async (req, res) => {
-    const codigo = req.body.codigo
-    
-    res.redirect(`miconsulta/${codigo}`)
+
+    try {
+        const codigo = req.body.codigo
+        const [tabla] = await pool.query('select * from cita')
+        if ( codigo > tabla.length+1 ){   
+            throw new Error("nuevo error")
+        }
+
+        res.redirect(`miconsulta/${codigo}`)
+    } catch (error) {
+
+        // res.render("consultas", gees)
+        // return res.status(500).json({
+        //     message : error.message
+        // })
+        
+    }
 }
 
 
 export const getMiConsulta = async (req,res) => {
 
 
-    const codigo = req.params.id
-    const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor where c.codigo = ? order by c.codigo;', [codigo])
+    try {
 
-    res.render("miconsulta", { tabla_completa })
+        const codigo = req.params.id
+
+        const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor where c.codigo = ? order by c.codigo;', [codigo])
+
+        res.render("miconsulta", { tabla_completa })
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "algo salio mal 3"
+        })
+    }
+
+}
+
+export const getMiConsulta2 = async (req,res) => {
+
+    try {
+        const codigo = req.body.codigo
+        const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor where c.codigo = ? order by c.codigo;', [codigo])
+        res.render("miconsulta", { tabla_completa })
+    } catch (error) {
+        return res.status(500).json({
+            massage: 'algo salio mal 4'
+        })
+    }
+
 }
