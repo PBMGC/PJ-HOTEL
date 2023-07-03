@@ -1,37 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <%- include('partials/menu.ejs') %>
-    <h1>formulario</h1>
 
-    <form method="post">
+    <div class="formulario-p">
+      <form class="formulario" method="post">
+        <h2>CITA</h2>
+        <div class="campo">
+          <label for="">nombre</label>
+          <input type="text" id="nombre" name="nombre" />
+        </div>
 
-        <label for="">nombre</label>
-        <input type="text" id="nombre" name="nombre">
+        <div class="campo">
+          <label for="">telefono</label>
+          <input type="text" id="telefono" name="telefono" />
+        </div>
 
-        <label for="">telefono</label>
-        <input type="text" id="telefono" name="telefono">
+        <div class="campo">
+          <label for="">dni</label>
+          <input type="text" id="dni" name="dni" />
+        </div>
 
-        <label for="">dni</label>
-        <input type="text" id="dni" name="dni">
+        <div class="campo">
+          <label for="">especialidad</label>
+          <input
+            type="text"
+            id="especialidad"
+            name="especialidad"
+            value="<%= especialidad %>"
+          />
+        </div>
 
-        <label for="">especialidad</label>
-        <input type="text" id="especialidad" name="especialidad" value="<%= especialidad %>">
+        <div class="campo">
+          <label for="">doctor</label>
+          <input type="text" id="doctor" name="doctor" value="<%= doctor %>" />
+        </div>
 
-        <label for="">doctor</label>
-        <input type="text" id="doctor" name="doctor" value="<%= doctor %>">
+        <div class="campo">
+          <label for="">fecha</label>
+          <input type="text" id="fecha" name="fecha" value="<%= fecha %>" />
+        </div>
 
-        <label for="">fecha</label>
-        <input type="text" id="fecha" name="fecha" value="<%= fecha %>">
-        
-        <button type="submit">estado</button>
-    </form>
-
-</body>
+        <div class="campo">
+          <button type="submit">estado</button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

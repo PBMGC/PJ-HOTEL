@@ -1,23 +1,28 @@
-.menu {
-    background: #08a783;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: 50px;
+body{
+    font-family: 'Geologica', sans-serif;
 }
 
-.page-title {
-    color: white;
-    margin-left: 200px;
-    margin-top: 6px;
+.titulo{
+    text-align: center;
+    padding: 2px;
+    background-color: rgba(76,216,118,255);
+    width: 100%;
 }
 
-.menu ul {
-    list-style: none;
-    text-align: right;
+.menu{
+    text-align: center;
+    background-color: black;
+    padding: 2px;
+    width: 100%;
 }
 
-.menu li {
-    display: inline-block;
-    margin-top: 14px;
-    margin-right: 100px;
+.menu a{
+    text-decoration: none;
+    color: rgba(76,216,118,255);
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.menu a:hover{
+    color: wheat;
 }
