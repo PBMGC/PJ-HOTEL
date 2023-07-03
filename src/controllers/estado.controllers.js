@@ -26,11 +26,9 @@ export const postEstado = async (req, res) => {
 
 export const getConsultas = async (req,res) => {
 
+    const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor order by c.codigo;')
 
-        const [tabla_completa] = await pool.query('SELECT c.codigo,c.estado, p.nombre, d.nombre as doctor, c.fecha FROM cita c JOIN paciente p ON p.dni = c.dni_paciente JOIN doctor d ON d.id = c.id_doctor order by c.codigo;')
-        res.render('consultas', {tabla_completa})
-        
-
+    res.render('consultas', {tabla_completa})
 
 }
 
@@ -40,6 +38,7 @@ export const postConsultas = async (req, res) => {
     try {
         const codigo = req.body.codigo
         const [tabla] = await pool.query('select * from cita')
+        
         if ( codigo > tabla.length+1 ){   
             throw new Error("nuevo error")
         }
@@ -47,10 +46,7 @@ export const postConsultas = async (req, res) => {
         res.redirect(`miconsulta/${codigo}`)
     } catch (error) {
 
-        // res.render("consultas", gees)
-        // return res.status(500).json({
-        //     message : error.message
-        // })
+
         
     }
 }
